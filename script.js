@@ -3,12 +3,14 @@ const scroll = new LocomotiveScroll({
   smooth: true,
 });
 
-const circle = () => {
+var timeout;
+
+const circle = (xscale, yscale) => {
   window.addEventListener("mousemove", (dets) => {
     // console.log(dets.clientX, dets.clientY)
     document.querySelector(
       "#minCircle"
-    ).style.transform = `translate(${dets.clientX}px, ${dets.clientY}px)`;
+    ).style.transform = `translate(${dets.clientX}px, ${dets.clientY}px) scale(${xscale}, ${yscale})`;
   });
 };
 
@@ -38,6 +40,7 @@ function pageAnimation() {
 }
 
 function skewCircle() {
+  clearTimeout(timeout);
   var xscale = 1;
   var yscale = 1;
 
@@ -45,16 +48,18 @@ function skewCircle() {
   var yprev = 0;
 
   window.addEventListener("mousemove", (dets) => {
-    xscale  = gsap.clamp(.8, 1.2, dets.clientX - xprev)
-    //952 is the new clientX and 1052 is old clientX so first time when its move then its value was 1052 and after again when its move then its like
-    //new val - old val = 952 - 1052
-    //in previous direction  952 - 1052 = -100 and if and in forward direction 1052 - 1125 = +73
-    yscale  = gsap.clamp(.8, 1.2, dets.clientY - yprev)
-    // var xdiff = dets.clientX - xprev;
-    xprev = dets.clientX; //in previous direction 0 = 1052 so, xprev = 1052 and in forward direction 0 = 1025
-    // var ydiff = dets.clientY - yprev;
+    xscale = gsap.utils.clamp(0.8, 1.8, dets.clientX - xprev);
+    yscale = gsap.utils.clamp(0.8, 1.8, dets.clientY - yprev);
+    xprev = dets.clientX;
     yprev = dets.clientY;
-    // console.log(xdiff);
+
+    circle(xscale, yscale);
+
+    timeout = setTimeout(() => {
+      document.querySelector(
+        "#minCircle"
+      ).style.transform = `translate(${dets.clientX}px, ${dets.clientY}px) scale(1,1)`;
+    }, 100);
   });
 }
 

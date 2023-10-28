@@ -16,7 +16,7 @@ a {
 }
 /* animation */
 #minCircle {
-  transition: all cubic-bezier(0.19, 1, 0.22, 1) 1s;
+  transition: all cubic-bezier(0.19, 1, 0.22, 1) .7s;
   width: 10px;
   height: 10px;
   z-index: 9999;
