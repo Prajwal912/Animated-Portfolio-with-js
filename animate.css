@@ -151,9 +151,9 @@ a {
 .elem img {
   position: absolute;
   z-index: 999;
-  height: 140%;
-  /* opacity: 0; */
-  display: none;
+  height: 100%;
+  opacity: 0;
+  /* display: none; */
 }
 /* third */
 

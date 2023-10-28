@@ -3,17 +3,6 @@ const scroll = new LocomotiveScroll({
   smooth: true,
 });
 
-var timeout;
-
-const circle = (xscale, yscale) => {
-  window.addEventListener("mousemove", (dets) => {
-    // console.log(dets.clientX, dets.clientY)
-    document.querySelector(
-      "#minCircle"
-    ).style.transform = `translate(${dets.clientX}px, ${dets.clientY}px) scale(${xscale}, ${yscale})`;
-  });
-};
-
 function pageAnimation() {
   var tl = gsap.timeline();
 
@@ -39,6 +28,17 @@ function pageAnimation() {
   });
 }
 
+var timeout;
+
+const circle = (xscale, yscale) => {
+  window.addEventListener("mousemove", (dets) => {
+    // console.log(dets.clientX, dets.clientY)
+    document.querySelector(
+      "#minCircle"
+    ).style.transform = `translate(${dets.clientX}px, ${dets.clientY}px) scale(${xscale}, ${yscale})`;
+  });
+};
+
 function skewCircle() {
   clearTimeout(timeout);
   var xscale = 1;
@@ -48,8 +48,8 @@ function skewCircle() {
   var yprev = 0;
 
   window.addEventListener("mousemove", (dets) => {
-    xscale = gsap.utils.clamp(0.8, 1.8, dets.clientX - xprev);
-    yscale = gsap.utils.clamp(0.8, 1.8, dets.clientY - yprev);
+    xscale = gsap.utils.clamp(0.8, 1.5, dets.clientX - xprev);
+    yscale = gsap.utils.clamp(0.8, 1.5, dets.clientY - yprev);
     xprev = dets.clientX;
     yprev = dets.clientY;
 
@@ -63,6 +63,28 @@ function skewCircle() {
   });
 }
 
+
 skewCircle();
 circle();
 pageAnimation();
+
+
+
+//image hover on body
+
+document.querySelectorAll(".elem").forEach((elem) => {
+   elem.addEventListener('mousemove', function(dets) {
+    //  console.log(dets.clientY)
+    //  console.log(elem.getBoundingClientRect())
+    // console.log(diff)
+    var diff = dets.clientY - elem.getBoundingClientRect().top;
+
+    gsap.to(elem.querySelector("img"), {
+        opacity:1,
+        ease:Power1,
+        top:diff,
+        left:dets.clientX
+    })
+   })
+})
+
