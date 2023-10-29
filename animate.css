@@ -16,7 +16,7 @@ a {
 }
 /* animation */
 #minCircle {
-  transition: all cubic-bezier(0.19, 1, 0.22, 1) .7s;
+  transition: all cubic-bezier(0.19, 1, 0.22, 1) 0.7s;
   width: 10px;
   height: 10px;
   z-index: 9999;
@@ -123,12 +123,13 @@ a {
 }
 /* second div */
 
-#animation--div {
+#second {
   width: 100%;
   padding-right: 10vw;
   background-color: black;
   padding-top: 200px;
   color: white;
+  /* height: 100vh; */
 }
 .elem {
   width: 100%;
@@ -149,11 +150,12 @@ a {
   border-bottom: 1px solid #888;
 }
 .elem img {
-  position: absolute;
-  z-index: 999;
-  height: 100%;
   opacity: 0;
-  /* display: none; */
+  pointer-events: none;
+  height: 120%;
+  z-index: 999;
+  position: absolute;
+  transform: translate(-50%, -50%);
 }
 /* third */
 

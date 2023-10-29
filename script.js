@@ -63,28 +63,37 @@ function skewCircle() {
   });
 }
 
-
 skewCircle();
 circle();
 pageAnimation();
 
-
-
 //image hover on body
+let rotate = 0;
+let diffrorate = 0;
+document.querySelectorAll(".elem").forEach(function (elem) {
+  elem.addEventListener("mousemove", function (dets) {
+    // diffrence from created from top 
+  let difference = dets.clientY - elem.getBoundingClientRect().top;
 
-document.querySelectorAll(".elem").forEach((elem) => {
-   elem.addEventListener('mousemove', function(dets) {
-    //  console.log(dets.clientY)
-    //  console.log(elem.getBoundingClientRect())
-    // console.log(diff)
-    var diff = dets.clientY - elem.getBoundingClientRect().top;
+  // rorate while moving from clientX
+  diffrorate = dets.clientX - rotate;
+  rotate = dets.clientX;
 
+  // gsap for animation
     gsap.to(elem.querySelector("img"), {
-        opacity:1,
-        ease:Power1,
-        top:diff,
-        left:dets.clientX
-    })
-   })
-})
-
+      opacity: 1,
+      ease: Power3,
+      top: difference,
+      left: dets.clientX   ,
+      rotate: gsap.utils.clamp(-20, 20, diffrorate*0.5)
+    });
+  });
+  elem.addEventListener("mouseleave", function (dets) {
+  // gsap for animation
+    gsap.to(elem.querySelector("img"), {
+      opacity: 0,
+      ease: Power3,
+      duration:0.5,
+    });
+  });
+});
